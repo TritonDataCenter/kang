@@ -1,0 +1,21 @@
+{
+	"name": "kang",
+	"version": "0.0.1",
+	"description": "debugging for distributed systems",
+	"main": "./lib/kang.js",
+	"bin": {
+		"kang": "./cmd/kang.js"
+	},
+	
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/davepacheco/kang.git"
+	},
+
+	"dependencies": {
+		"restify": "1.2.0",
+		"posix-getopt": "0.0.1"
+	},
+
+	"engines": [ "node >=0.6.0" ]
+}
