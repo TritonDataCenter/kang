@@ -1,0 +1,132 @@
+/*
+ * console.css: kang console styles
+ */
+
+/*
+ * General rules.
+ */
+
+body {
+	font-family: sans-serif;
+	font-size: small;
+	background: #aaaaaa;
+	color: #004400;
+}
+
+tr {
+	vertical-align: top;
+}
+
+
+/*
+ * Reusable page blocks.
+ */
+
+.kHeader {
+	font-size: x-large;
+	font-weight: bold;
+	margin-right: 30px;
+	text-shadow: 1px 1px 1px #333333;
+}
+
+.kSubHeader {
+	font-size: large;
+	font-weight: bold;
+	margin-right: 30px;
+}
+
+.kBlockLeftThird {
+	padding: 20px;
+	position: absolute;
+	left: 5%;
+	right: 30%;
+}
+
+.kBlockRightTwoThirds {
+	padding: 20px;
+	position: absolute;
+	left: 40%;
+	right: 5%;
+}
+
+.kBlockLeftHalf {
+	padding: 20px;
+	position: absolute;
+	left: 5%;
+	right: 45%;
+}
+
+.kBlockRightHalf {
+	padding: 20px;
+	position: absolute;
+	left: 55%;
+	right: 5%;
+}
+
+.kHorizontalSeparator {
+	border-bottom: 1px #004400 dashed;
+}
+
+/*
+ * The "Console" itself is the actual body of the page in which all of the
+ * content lives.
+ */
+.kConsole {
+	position: absolute;
+	left: 5%;
+	right: 5%;
+	top: 4%;
+	min-height: 90%;
+	background: #eeeeee;
+	border: 1px #004400 solid;
+	padding-top: 20px;
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-bottom: 20px;
+	margin-bottom: 100px;
+	box-shadow: 3px 3px 4px #000;
+}
+
+.kConsole > div {
+	margin-bottom: 10px;
+}
+
+.kDataContainer > div {
+	margin-bottom: 10px;
+}
+
+/*
+ * Service summary table
+ */
+.kServiceSummary {
+	min-height: 100px;
+}
+
+	table.kServiceTable {
+		width: *;
+	}
+
+		table.kServiceTable th {
+			text-align: left
+		}
+	
+		table.kServiceTable td, table.kServiceTable th {
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+
+table.kDynamicTable {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+/*
+ * Raw snapshot dump (primarily for debugging)
+ */
+.kDump {
+	font-family: monospace;
+	white-space: pre;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	display: none; /* by default */
+}

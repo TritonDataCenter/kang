@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"> 
+<html> 
+ <head> 
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"> 
+    <title>kang console</title> 
+    <link type="text/css" href="resources/css/ui-lightness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
+    <link href="resources/css/console.css" rel="stylesheet" type="text/css"></link> 
+    <script language="javascript" type="text/javascript" src="resources/js/jquery/jquery-1.7.1.min.js"></script> 
+    <script language="javascript" type="text/javascript" src="resources/js/jquery/jquery.dataTables.js"></script>
+    <script language="javascript" type="text/javascript" src="resources/js/jquery/jquery-ui-1.8.8.custom.min.js"></script>
+    <script language="javascript" type="text/javascript" src="resources/js/console.js"></script> 
+ </head> 
+<body> 
+
+<div class="kConsole">
+    <div class="kConsoleHeader">
+        <span class="kHeader">kang console</span>
+        <a href="javascript:kFormRefreshAll()">refresh all</a><br />
+    </div>
+
+    <div class="kHorizontalSeparator"></div>
+
+    <div class="kServiceSummary" id="kServiceSummary">
+        <h2>Services</h2>
+        <div class="kBlockLeftThird">
+        	<span class="kAddServiceForm">
+        	    Add service:
+        	    <input type="input" id="kAddServiceService" size="30" />
+        	    <a href="javascript:kFormAddService()">add</a>
+        	</span>
+        </div>
+        <div class="kBlockRightTwoThirds">
+    	<table class="kServiceTable" id="kServiceTable"></table>
+        </div>
+    </div>
+
+    <div class="kHorizontalSeparator"></div>
+
+    <div class="kDataContainer" id="kDataContainer">
+
+
+    </div>
+
+    <div>
+    	<span class="kSubHeader">Raw snapshot</span>
+	<a href="#" id="kDumpToggle">show</a><br />
+    	<div class="kDump" id="kDump"></div>
+    </div>
+    
+    <div class="kHorizontalSeparator"></div>
+</div>
+ 
+</body> 
+</html> 
