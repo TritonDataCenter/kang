@@ -1,6 +1,6 @@
 {
 	"name": "kang",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "debugging for distributed systems",
 	"main": "./lib/kang.js",
 	"bin": {
