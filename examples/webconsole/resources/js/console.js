@@ -32,6 +32,11 @@ function kInit()
 	    kDump, false);
 
 	kRedrawWorld();
+
+	kLoadHash();
+
+	if (kServiceUrls.length > 0)
+		kRefresh();
 }
 
 function kFormAddService()
@@ -39,12 +44,33 @@ function kFormAddService()
 	if (kServiceField.value.length > 0)
 		kServiceUrls.push(kServiceField.value);
 	kServiceField.value = '';
+	kSaveHash();
 	kRefresh();
 }
 
 function kFormRefreshAll()
 {
 	kRefresh();
+}
+
+function kSaveHash()
+{
+	window.location.hash = kServiceUrls.map(function (url) {
+		return ('host=' + encodeURIComponent(url));
+	}).join('&');
+}
+
+function kLoadHash()
+{
+	var entries = window.location.hash.substr(1).split('&');
+
+	entries.forEach(function (entry) {
+		if (entry.substr(0, 'host='.length) != 'host=')
+			return;
+
+		kServiceUrls.push(decodeURIComponent(
+		    entry.substr('host='.length)));
+	});
 }
 
 function kRedrawWorld()
@@ -232,6 +258,7 @@ function kRefresh()
 		});
 
 		kSnapshot = data;
+		kSaveHash();
 		kRedrawWorld();
 	});
 
