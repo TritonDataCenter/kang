@@ -88,13 +88,21 @@ tr {
 	box-shadow: 3px 3px 4px #000;
 }
 
-.kConsole > div {
-	margin-bottom: 10px;
-}
+	.kConsoleHeader > * {
+		margin-right: 30px;
+	}
 
-.kDataContainer > div {
-	margin-bottom: 10px;
-}
+	.kLastUpdated {
+		color: #666666;
+	}
+
+	.kConsole > div {
+		margin-bottom: 10px;
+	}
+	
+	.kDataContainer > div {
+		margin-bottom: 10px;
+	}
 
 /*
  * Service summary table

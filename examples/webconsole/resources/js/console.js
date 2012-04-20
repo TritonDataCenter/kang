@@ -7,6 +7,7 @@ $(document).ready(kInit);
 /*
  * Important DOM elements
  */
+var kLastUpdateTime;
 var kDataContainer;
 var kServiceField;
 var kServiceSummary;
@@ -18,10 +19,12 @@ var kDump;
  */
 var kServiceUrls = [];  /* list of URLs we're collecting data from */
 var kServices = [];	/* list of resolved services */
+var kUpdateTime;
 var kSnapshot;
 
 function kInit()
 {
+	kLastUpdateTime = document.getElementById('kLastUpdateTime').firstChild;
 	kDataContainer = document.getElementById('kDataContainer');
 	kServiceField = document.getElementById('kAddServiceService');
 	kServiceTable = document.getElementById('kServiceTable');
@@ -221,7 +224,13 @@ function kRefresh()
 		return ('host=' + encodeURIComponent(url));
 	}).join('&');
 
+	kLastUpdateTime.nodeValue =
+	    (kUpdateTime ? kUpdateTime : 'never') + ' (refreshing...)';
+
 	var rq = $.getJSON('proxy' + query, function (data) {
+		kUpdateTime = new Date();
+		kLastUpdateTime.nodeValue = kUpdateTime;
+
 		if (!data || !data['snapshot'] || !data['snapshot'].cs_objects)
 			return;
 
