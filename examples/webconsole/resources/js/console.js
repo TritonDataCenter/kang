@@ -117,7 +117,9 @@ function kRedrawDynamic()
 				snapshot[key][objkey].forEach(function (entry) {
 					var row = [];
 					fields.forEach(function (field) {
-						row.push(entry[field] || '');
+						row.push(JSON.stringify(
+						    entry[field], null, 4) ||
+						    '');
 					});
 					rows.push(row);
 				});

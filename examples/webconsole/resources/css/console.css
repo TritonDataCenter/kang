@@ -74,9 +74,9 @@ tr {
 .kConsole {
 	position: absolute;
 	left: 5%;
-	right: 5%;
 	top: 4%;
 	min-height: 90%;
+	min-width: 85%;
 	background: #eeeeee;
 	border: 1px #004400 solid;
 	padding-top: 20px;
@@ -84,6 +84,7 @@ tr {
 	padding-right: 50px;
 	padding-bottom: 20px;
 	margin-bottom: 100px;
+	margin-right: 5%;
 	box-shadow: 3px 3px 4px #000;
 }
 
@@ -119,6 +120,19 @@ table.kDynamicTable {
 	padding-left: 10px;
 	padding-right: 10px;
 }
+
+	table.kDynamicTable th {
+		text-align: left;
+	}
+
+	table.kDynamicTable td, table.kDynamicTable th {
+		padding: 10px;
+	}
+
+	table.kDynamicTable td, table.kDynamicTable th {
+		white-space: pre;
+	}
+
 
 /*
  * Raw snapshot dump (primarily for debugging)
