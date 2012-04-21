@@ -72,19 +72,23 @@ tr {
  * content lives.
  */
 .kConsole {
-	position: absolute;
-	left: 5%;
-	top: 4%;
-	min-height: 90%;
-	min-width: 85%;
 	background: #eeeeee;
 	border: 1px #004400 solid;
+
+	position: absolute;
+	margin-left: 10px;
+	margin-right: 10px;
+	min-width: 85%;
+
+	margin-top: 10px;
+	margin-bottom: 10px;
+	min-height: 90%;
+
 	padding-top: 20px;
-	padding-left: 50px;
-	padding-right: 50px;
+	padding-left: 20px;
+	padding-right: 20px;
 	padding-bottom: 20px;
-	margin-bottom: 100px;
-	margin-right: 5%;
+
 	box-shadow: 3px 3px 4px #000;
 }
 
@@ -111,18 +115,19 @@ tr {
 	min-height: 100px;
 }
 
-	table.kServiceTable {
-		width: *;
+	table.kServiceTable th {
+		text-align: left
+	}
+	
+	table.kServiceTable td, table.kServiceTable th {
+		padding-left: 5px;
+		padding-right: 5px;
+		white-space: pre;
 	}
 
-		table.kServiceTable th {
-			text-align: left
-		}
-	
-		table.kServiceTable td, table.kServiceTable th {
-			padding-left: 5px;
-			padding-right: 5px;
-		}
+	table.kServiceTable td {
+		font-size: x-small;
+	}
 
 table.kDynamicTable {
 	padding-left: 10px;
@@ -134,11 +139,13 @@ table.kDynamicTable {
 	}
 
 	table.kDynamicTable td, table.kDynamicTable th {
-		padding: 10px;
+		padding-left: 5px;
+		padding-right: 5px;
+		white-space: pre;
 	}
 
-	table.kDynamicTable td, table.kDynamicTable th {
-		white-space: pre;
+	table.kDynamicTable td {
+		font-size: x-small;
 	}
 
 

@@ -247,4 +247,7 @@ having to specify the services each time:
 
 - Cached mode for reading a snapshot from a given file for high-latency links
   and postmortem analysis.
-- Web-based browser that links objects from multiple services
+- Webconsole: turn on/off (and reorder?) individual table columns
+  Webconsole: refactor snapshot parsing to share code for web and server
+- Remove prefixes on library function names
+- Make default path /kang/snapshot
