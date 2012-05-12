@@ -164,6 +164,7 @@ function kRedrawDynamic()
 			'bLengthChange': false,
 			'bFilter': false,
 			'bInfo': false,
+			'bPaginate': false,
 			'oLanguage': {
 				'sEmptyTable': 'No objects.'
 			}
