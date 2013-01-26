@@ -116,8 +116,9 @@ function kRedrawDynamic()
 		return;
 
 	/* XXX should use library client code */
+	var schema = kSnapshot['schema'];
 	var snapshot = kSnapshot['snapshot'].cs_objects;
-	var name, div, objkeys, fields, field, rows, columns;
+	var name, div, objkeys, fieldhash, fields, field, rows, columns;
 
 	for (var key in snapshot) {
 		if (key == 'service' || key == 'stats')
@@ -130,25 +131,46 @@ function kRedrawDynamic()
 		div.appendChild(document.createTextNode(name));
 
 		objkeys = Object.keys(snapshot[key]);
+		if (schema['types'].hasOwnProperty(key)) {
+			fields = [];
+
+			for (var s in schema['types'][key])
+				for (var c in schema['types'][key][s])
+					fields = fields.concat(
+					    schema['types'][key][s][c][
+					        'summaryFields']);
+
+			fields = fields.filter(function (field, i) {
+				return (fields.indexOf(field) == i);
+			});
+		} else {
+			fieldhash = {};
+			objkeys.forEach(function (objkey) {
+				for (var k in snapshot[key][objkey][0])
+					fieldhash[k] = true;
+			});
+			fields = Object.keys(fieldhash);
+		}
+
+		columns = [ { 'sTitle': name } ].concat(fields.map(
+		    function (field) { return ({ 'sTitle': field }); }));
+
 		if (objkeys.length === 0) {
-			columns = [ { 'sTitle': key } ];
 			rows = [];
 		} else {
-			columns = [];
 			rows = [];
-			fields = [];
-			for (field in snapshot[key][objkeys[0]][0]) {
-				fields.push(field);
-				columns.push({ 'sTitle': field });
-			}
 
 			objkeys.forEach(function (objkey) {
 				snapshot[key][objkey].forEach(function (entry) {
 					var row = [];
+					row.push(objkey);
 					fields.forEach(function (field) {
-						row.push(JSON.stringify(
-						    entry[field], null, 4) ||
-						    '');
+						var val = JSON.stringify(
+						    entry[field], null, 4);
+						if (val && val.length > 160)
+							val = val.substr(
+							    0, 157) + '...';
+						row.push(val || '');
 					});
 					rows.push(row);
 				});

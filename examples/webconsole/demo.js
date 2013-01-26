@@ -82,16 +82,23 @@ function kangProxy(request, response)
 		}
 	});
 
-	mod_kang.knFetchAll({ sources: validsources }, function (err, snapshot) {
+	mod_kang.knFetchSchema({ sources: validsources }, function (err, schema) {
 		var rv = {
 			sources: allsources,
-			snapshot: snapshot
 		};
 
 		if (err)
 			rv['error'] = err;
+		rv['schema'] = schema;
 
-		response.writeHead(200);
-		response.end(JSON.stringify(rv));
+		mod_kang.knFetchAll({ sources: validsources },
+		    function (err, snapshot) {
+			if (err)
+				rv['error'] = err;
+			rv['snapshot'] = snapshot;
+
+			response.writeHead(200);
+			response.end(JSON.stringify(rv));
+		    });
 	});
 }
