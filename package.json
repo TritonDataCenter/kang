@@ -5,6 +5,7 @@
 	"main": "./lib/kang.js",
 	"bin": {
 		"kang": "./cmd/kang.js"
+		"kdb": "./cmd/kdb.js"
 	},
 	
 	"repository": {
@@ -14,7 +15,8 @@
 
 	"dependencies": {
 		"restify": "1.2.0",
-		"posix-getopt": "0.0.1"
+		"posix-getopt": "0.0.1",
+		"strsplit": "1.0.0"
 	},
 
 	"engines": [ "node >=0.6.0" ]

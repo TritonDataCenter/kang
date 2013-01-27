@@ -18,7 +18,7 @@ if (isNaN(port)) {
 }
 
 var args = {
-    uri_base: '/status',
+    uri_base: '/kang',
     port: port,
     service_name: 'kang_example',
     version: '0.0.1',
