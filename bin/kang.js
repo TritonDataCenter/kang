@@ -6,6 +6,7 @@
 
 var mod_assert = require('assert');
 var mod_repl = require('repl');
+var mod_util = require('util');
 var mod_vm = require('vm');
 
 var mod_getopt = require('posix-getopt');
@@ -155,19 +156,38 @@ function replHelp(_, callback)
 	callback();
 }
 
-
 function replEvalExpr(expr)
 {
-	var base, vm, result;
+	var base, context, result;
 
+	/*
+	 * Ideally, commands would be executed with the global object set to the
+	 * snapshot itself, and with "this" set to the same global object.  That
+	 * way users could run "print this" to see the global scope, and "print
+	 * this.service" to see the value of "service", or just "print service".
+	 *
+	 * Unfortunately, this does not appear achievable with the vm module's
+	 * runIn[New]Context functions.  We *can* set the global context and
+	 * "this" to the snapshot itself, allowing both "print service" and
+	 * "print this.service" to work, but "print this" always prints "{}".
+	 * In fact, this issue isn't superficial: if you iterate the properties
+	 * of "this", you'll find there are none, but "this.service" still
+	 * works.  This behavior is quite surprising, even to experienced
+	 * JavaScript programmers.  As a result, we require users to use "self"
+	 * for this purpose instead of "this".  We set the global "self"
+	 * property to refer to the snapshot, and we also set global properties
+	 * for all top-level properties of the snapshot.
+	 */
 	base = kdb_snapshots[kdb_current_snapshot].cs_objects;
+	context = { 'self': base };
+	for (var k in base)
+		context[k] = base[k];
 
 	if (expr === undefined || expr.length === 0)
-		return (base);
+		expr = 'self';
 
 	try {
-		vm = mod_vm.createContext(base);
-		result = mod_vm.runInContext(expr, vm);
+		result = mod_vm.runInNewContext(expr, context);
 		return (result);
 	} catch (ex) {
 		console.error('error: ' + ex.message);

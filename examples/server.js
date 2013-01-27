@@ -40,7 +40,8 @@ mod_kang.knStartServer(args, function (err, server) {
 
 var kns_data = {
 	'student': {
-		'bart': { 'surname': 'simpson', 'role': 'clown' },
+		'bart': { 'surname': 'simpson', 'role': 'clown',
+		    'siblings': [ 'lisa' ] },
 		'lisa': { 'surname': 'simpson', 'role': 'geek' },
 		'nelson': { 'surname': 'muntz', 'role': 'bully' },
 	},
