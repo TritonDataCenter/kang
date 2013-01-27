@@ -14,6 +14,10 @@
 NPM		 = npm
 CATEST		 = tools/catest
 
+# javascriptlint and jsstyle should be installed in the environment
+JSL		 = jsl
+JSSTYLE		 = jsstyle
+
 #
 # Files
 #
@@ -37,5 +41,4 @@ all:
 test:
 	$(CATEST) $(JSTEST_FILES)
 
-include ./Makefile.deps
 include ./Makefile.targ
