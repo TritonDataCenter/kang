@@ -6,6 +6,7 @@ var mod_assert = require('assert');
 var mod_kang = require('../lib/kang');
 
 var snapshot_svconly = {
+	'source': mod_kang.knMakeSource('localhost'),
 	'service': {
 		'name': 'ca',
 		'component': 'configsvc',
@@ -15,6 +16,7 @@ var snapshot_svconly = {
 };
 
 var snapshot_complete = {
+	'source': mod_kang.knMakeSource('localhost'),
 	'service': {
 		'name': 'ca',
 		'component': 'configsvc',
@@ -59,6 +61,7 @@ var snapshot_complete = {
 };
 
 var snapshot_overlap = {
+	'source': mod_kang.knMakeSource('localhost'),
 	'service': {
 		'name': 'ca',
 		'component': 'caaggsvc',
@@ -93,7 +96,8 @@ mod_assert.deepEqual([ {
     'component': 'configsvc',
     'ident': 'headnode',
     'version': '6.5.3',
-    'service': 'ca.configsvc.headnode'
+    'service': 'ca.configsvc.headnode',
+    'source': 'http://localhost:80/kang/snapshot'
 }], result.lookup('service', 'ca.configsvc.headnode'));
 
 mod_assert.deepEqual({
@@ -101,7 +105,8 @@ mod_assert.deepEqual({
     'component': 'configsvc',
     'ident': 'headnode',
     'version': '6.5.3',
-    'service': 'ca.configsvc.headnode'
+    'service': 'ca.configsvc.headnode',
+    'source': 'http://localhost:80/kang/snapshot'
 }, result.lookupFirst('service', 'ca.configsvc.headnode'));
 
 /* snapshot with objects and links */
@@ -119,7 +124,8 @@ mod_assert.deepEqual([ {
     'component': 'configsvc',
     'ident': 'headnode',
     'version': '6.5.3',
-    'service': 'ca.configsvc.headnode'
+    'service': 'ca.configsvc.headnode',
+    'source': 'http://localhost:80/kang/snapshot'
 }], entry);
 
 mod_assert.deepEqual([], result.links(entry));
@@ -136,7 +142,8 @@ mod_assert.deepEqual({
     'component': 'configsvc',
     'ident': 'headnode',
     'version': '6.5.3',
-    'service': 'ca.configsvc.headnode'
+    'service': 'ca.configsvc.headnode',
+    'source': 'http://localhost:80/kang/snapshot'
 }, result.lookupFirst('service', 'ca.configsvc.headnode'));
 
 entry = result.lookupFirst('instr', 'cn01');

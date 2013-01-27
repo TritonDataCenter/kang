@@ -1,10 +1,10 @@
 {
 	"name": "kang",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "debugging for distributed systems",
 	"main": "./lib/kang.js",
 	"bin": {
-		"kang": "./cmd/kang.js"
+		"kang": "./cmd/kang.js",
 		"kdb": "./cmd/kdb.js"
 	},
 	
@@ -13,10 +13,15 @@
 		"url": "git://github.com/davepacheco/kang.git"
 	},
 
+	"optionalDependencies": {
+		"restify": "1.4.2"
+	},
+
 	"dependencies": {
-		"restify": "1.2.0",
+		"jsprim": "0.4.0",
 		"posix-getopt": "0.0.1",
-		"strsplit": "1.0.0"
+		"strsplit": "1.0.0",
+		"vasync": "1.3.3"
 	},
 
 	"engines": [ "node >=0.6.0" ]

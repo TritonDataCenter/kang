@@ -85,10 +85,23 @@ specified, as in:
       https://localhost/kang   https://localhost:443/kang
 
 Multiple servers may be specified in a comma-separated list.  Servers are
-specified using the -h option or (if none is present) the KANG_SOURCES
+specified using the -h option or (if none is present) the KANG\_SOURCES
 environment variable.
 
 ## Background
+
+While interactive program execution is a useful feature during development, the
+most important feature for debuggers in both development and production
+environments is the presentation of current program state.  Program state is
+often examined on an ad-hoc basis by engineers debugging a particular problem,
+but it's often useful to build tools to automatically analyze this state as
+well, either to summarize it for humans or to automatically look for certain
+classes of problems.  In this regard, kang is a debugger for distributed
+systems: it fetches, aggregates, and presents program state for consumption by
+both humans and automated tools.  The goal is to allow each component of the
+distributed system to describe the objects it knows about (and potentially a
+small amount of metadata suggesting what to do with this information) so that
+the kang system can fetch, aggregate, and present this information usefully.
 
 In debugging distributed systems of heterogeneous components, it's critical to
 be able to quickly understand the internal state of each component. We have

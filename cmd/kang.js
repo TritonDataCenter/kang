@@ -19,7 +19,7 @@ var KNG_USAGE = [
     '',
     '    -f     output format (default: human-readable text)',
     '    -h     remote Kang hosts, as comma-separated list of',
-    '           [http[s]]://host[:port][/uri]',
+    '           [http[s]://]host[:port][/uri]',
     '    -l     long listing (emit object details, not just identifiers)',
     '    -o     column names to print, as comma-separated list (implies -l)',
     '',

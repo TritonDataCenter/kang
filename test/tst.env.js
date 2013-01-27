@@ -9,35 +9,35 @@ mod_assert.deepEqual(mod_kang.knMakeSource('example.com'), {
 	protocol: 'http',
 	host: 'example.com',
 	port: 80,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 });
 
 mod_assert.deepEqual(mod_kang.knMakeSource('example:8080'), {
 	protocol: 'http',
 	host: 'example',
 	port: 8080,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 });
 
 mod_assert.deepEqual(mod_kang.knMakeSource('http://example:8080'), {
 	protocol: 'http',
 	host: 'example',
 	port: 8080,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 });
 
 mod_assert.deepEqual(mod_kang.knMakeSource('https://example'), {
 	protocol: 'https',
 	host: 'example',
 	port: 443,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 });
 
 mod_assert.deepEqual(mod_kang.knMakeSource('https://example:8080'), {
 	protocol: 'https',
 	host: 'example',
 	port: 8080,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 });
 
 mod_assert.deepEqual(mod_kang.knMakeSource('http://example:8080/foo'), {
@@ -91,18 +91,18 @@ mod_assert.deepEqual(mod_kang.knParseSources('moe'), [ {
 	protocol: 'http',
 	host: 'moe',
 	port: 80,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 }]);
 mod_assert.deepEqual(mod_kang.knParseSources('moe,apu,ralph:8080/catfood'), [ {
 	protocol: 'http',
 	host: 'moe',
 	port: 80,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 }, {
 	protocol: 'http',
 	host: 'apu',
 	port: 80,
-	path: '/status/snapshot'
+	path: '/kang/snapshot'
 }, {
 	protocol: 'http',
 	host: 'ralph',

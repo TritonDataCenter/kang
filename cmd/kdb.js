@@ -20,7 +20,7 @@ var KNG_USAGE = [
     'Options:',
     '',
     '    -h     remote Kang hosts, as comma-separated list of',
-    '           [http[s]]://host[:port][/uri]'
+    '           [http[s]://]host[:port][/uri]'
 ].join('\n');
 
 var kdb_hosts = [];			/* list of sources to query */
@@ -91,8 +91,19 @@ function start()
 	    'ignoreUndefined': true
 	});
 
-	replSnapshot(0);
+	replSnapshot([ 'snapshot', '0' ], function () {});
 }
+
+var replCmds = {
+    '': replNoop,
+    'help': replHelp,
+    'list': replList,
+    'ls': replList,
+    'print': replPrint,
+    'update': replUpdate,
+    'snapshot': replSnapshot,
+    'snapshots': replSnapshots
+};
 
 function replEval(cmd, context, filename, callback)
 {
@@ -102,74 +113,48 @@ function replEval(cmd, context, filename, callback)
 	cmd = cmd.substr(1, cmd.length - 3);
 	parts = mod_strsplit(cmd, /\s+/, 2);
 
-	if (parts[0] === '') {
-		callback();
-		return;
-	}
-
-	/* XXX clean this up */
 	/* XXX add walker/print/pipeline like mdb */
-	if (parts[0] == 'update') {
-		replUpdate(callback);
-		return;
-	}
-
-	if (parts[0] == 'print') {
-		callback(null, replPrint(parts[1]));
-		return;
-	}
-
-	if (parts[0] == 'list' || parts[0] == 'ls') {
-		callback(null, replList(parts[1]));
-		return;
-	}
-
-	if (parts[0] == 'snapshots')
-		replSnapshots();
-	else if (parts[0] == 'snapshot')
-		replSnapshot(parts[1]);
-	else if (parts[0] == 'help')
-		replHelp();
-	else
+	if (replCmds.hasOwnProperty(parts[0])) {
+		replCmds[parts[0]](parts, callback);
+	} else {
 		console.error('unknown command: %s', cmd);
+		callback();
+	}
+}
 
+function replNoop(_, callback)
+{
 	callback();
 }
 
-function replUpdate(callback)
+var replHelpMessage = [
+    'kdb is the Kang Debugger, used to interactively browse snapshots of ',
+    'distributed system state.  The following commands are available:',
+    '',
+    '    help           Print this help message',
+    '',
+    '    list <expr>    Evaluate <expr> as with print and list elements.',
+    '',
+    '    print <expr>   Evaluate the JavaScript expression <expr> and print',
+    '                   the result.  The expression is evaluated in the ',
+    '                   context of the current snapshot.  Available globals ',
+    '                   include the list of available types.',
+    '',
+    '    snapshot       Show current snapshot',
+    '',
+    '    snapshot <i>   Switch to snapshot <i>',
+    '',
+    '    snapshots      Show available snapshots',
+    '',
+    '    update         Fetch a new snapshot (and switch to it)'
+].join('\n');
+
+function replHelp(_, callback)
 {
-	fetch(function () {
-		console.log('retrieved snapshot %s', kdb_snapshots.length - 1);
-		callback();
-	});
+	console.log(replHelpMessage);
+	callback();
 }
 
-function replSnapshot(i)
-{
-	if (i === undefined || i.length === 0) {
-		console.log('browsing snapshot %s', kdb_current_snapshot);
-		return;
-	}
-
-	i = parseInt(i, 10);
-	if (isNaN(i)) {
-		console.error('usage: snapshot <index>');
-		return;
-	}
-
-	if (i < 0 || i >= kdb_snapshots.length) {
-		console.error('snapshot: index out of range');
-		return;
-	}
-
-	kdb_current_snapshot = i;
-}
-
-function replSnapshots()
-{
-	for (var i = 0; i < kdb_snapshots.length; i++)
-		console.log(i);
-}
 
 function replEvalExpr(expr)
 {
@@ -190,49 +175,57 @@ function replEvalExpr(expr)
 	}
 }
 
-function replList(expr)
+function replList(args, callback)
 {
-	var result = replEvalExpr(expr);
+	var result = replEvalExpr(args[1]);
 
 	if (typeof (result) != 'object' || result === null)
-		return (undefined);
-
-	if (Array.isArray(result))
-		return (result);
-
-	return (Object.keys(result).sort());
+		callback();
+	else if (Array.isArray(result))
+		callback(null, result);
+	else
+		callback(null, Object.keys(result).sort());
 }
 
-function replPrint(expr)
+function replPrint(args, callback)
 {
-	return (replEvalExpr(expr));
+	callback(null, replEvalExpr(args[1]));
 }
 
-var replHelpMessage = [
-    'kdb is the Kang Debugger, used to interactively browse snapshots of ',
-    'distributed system state.  The following commands are available:',
-    '',
-    '    help		Print this help message',
-    '',
-    '    list <expr>	Evaluate <expr> as with print and list elements.',
-    '',
-    '    print <expr>   Evaluate the JavaScript expression <expr> and print',
-    '                   the result.  The expression is evaluated in the ',
-    '			context of the current snapshot.  Available globals ',
-    '                   include the list of available types.',
-    '',
-    '    snapshot	Show current snapshot',
-    '',
-    '    snapshot <i>	Switch to snapshot <i>',
-    '',
-    '    snapshots	Show available snapshots',
-    '',
-    '    update		Fetch a new snapshot (and switch to it)'
-].join('\n');
-
-function replHelp()
+function replSnapshot(args, callback)
 {
-	console.log(replHelpMessage);
+	if (args.length < 2) {
+		console.log('browsing snapshot %s', kdb_current_snapshot);
+		callback();
+		return;
+	}
+
+	var i = parseInt(args[1], 10);
+
+	if (isNaN(i))
+		console.error('usage: snapshot <index>');
+	else if (i < 0 || i >= kdb_snapshots.length)
+		console.error('snapshot: index out of range');
+	else
+		kdb_current_snapshot = i;
+
+	callback();
+}
+
+function replSnapshots(_, callback)
+{
+	for (var i = 0; i < kdb_snapshots.length; i++)
+		console.log(i);
+
+	callback();
+}
+
+function replUpdate(_, callback)
+{
+	fetch(function () {
+		console.log('retrieved snapshot %s', kdb_snapshots.length - 1);
+		callback();
+	});
 }
 
 main();
