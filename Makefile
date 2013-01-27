@@ -21,7 +21,7 @@ JSSTYLE		 = jsstyle
 #
 # Files
 #
-JS_FILES	:= $(shell find cmd lib test -name '*.js')
+JS_FILES	:= $(shell find bin lib test -name '*.js')
 
 JSL_CONF_NODE	 = tools/jsl.node.conf
 JSL_FILES_NODE   = $(JS_FILES)

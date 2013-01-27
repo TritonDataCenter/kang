@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /*
- * kdb.js: interactive command-line interface for the Kang API
+ * kang.js: interactive command-line interface for the Kang API
  */
 
 var mod_assert = require('assert');
@@ -13,7 +13,7 @@ var mod_kang = require('../lib/kang');
 var mod_strsplit = require('strsplit');
 
 var KNG_USAGE = [
-    'Usage: kdb [-h host1[host2...]]',
+    'Usage: kang [-h host1[host2...]]',
     '',
     'Starts an interactive Kang debugging session.',
     '',
@@ -128,7 +128,7 @@ function replNoop(_, callback)
 }
 
 var replHelpMessage = [
-    'kdb is the Kang Debugger, used to interactively browse snapshots of ',
+    'kang is the Kang Debugger, used to interactively browse snapshots of ',
     'distributed system state.  The following commands are available:',
     '',
     '    help           Print this help message',
