@@ -18,58 +18,16 @@ Then run the example server in this repo:
     # node examples/server.js
     server listening at http://0.0.0.0:8080
 
-Now use kang to query available types:
+Now run the kang debugger:
 
-    # kang -hlocalhost:8080 type
-    TYPE    
-    service 
-    stats   
-    student 
-    teacher 
-    staff 
+    # kang -hlocalhost:8080
 
-Or query specific types of objects:
-
-    # kang -hlocalhost:8080 -l student
-    STUDENT ROLE  SURNAME 
-    bart    clown simpson 
-    lisa    geek  simpson 
-    nelson  bully muntz   
+Run "help" for some suggested examples and try them out.
 
 
 ## kang tool
 
-Usage: kang [-h host1[host2...]] [-l] [-o col1[,col2...] query
-       kang [-h host1[host2...]] -f "json" query
-
-Queries remote Kang servers for objects matching "query" and prints out the
-results.  The following options are supported:
-
-    -f     output format (default: human-readable text)
-    -h     remote Kang hosts, as comma-separated list of
-           [http[s]]://host[:port][/uri]
-    -l     long listing (emit object details, not just identifiers)
-    -o     column names to print, as comma-separated list (implies -l)
-
-"query" is an object type or identifier, as in:
-
-    client             all objects of type "client"
-    client:localhost   all objects of type "client" with id "localhost"
-
-The special query "type" lists all available types.
-
-In the first form, this tool prints results in human-readable form.  The
-following options are supported:
-
-For text-based output, the following options are supported:
-
-    -l             Long listing.  Emit object details, not just the
-                   object\'s identifier
-
-    -o col1,...    Emit only the given fields of each object. Implies -l.
-
-The -f option allows other output formats to be specified.  The only
-other format currently supported is json.
+Usage: `kang [-h host1[host2...]]`
 
 Remote servers are specified using the following format:
 
@@ -87,6 +45,10 @@ specified, as in:
 Multiple servers may be specified in a comma-separated list.  Servers are
 specified using the -h option or (if none is present) the KANG\_SOURCES
 environment variable.
+
+When you run `kang`, it creates a snapshot of the distributed system's state by
+querying each of the servers.  You can browse the state interactively.  Type
+"help" for more information.
 
 ## Background
 
@@ -116,7 +78,7 @@ way of extracting this state for the purpose of debugging.
 
 ## API
 
-kang defines a single HTTP entry point, `/status/snasphot`, that returns a
+kang defines a single HTTP entry point, `/kang/snapshot`, that returns a
 snapshot of the service's internal state in the form of a JSON object that
 looks like this:
 
@@ -128,7 +90,7 @@ looks like this:
                     "ident": "us-sw-1.headnode",
                     "version": "0.1.0vmaster-20120126-2-g92bf718"
             },
-    
+
             /* arbitrary service stats */
             "stats": {
                     "started": "2012-03-20T17:03:59.221Z",
@@ -148,10 +110,10 @@ looks like this:
                         }
                     }
             },
-    
+
             /* extra service-specific information */
             "types": [ 'instrumentation', 'instrumenter' ],
-    
+
             "instrumentation": {
                     "cust:12345;1": {
 			    "creation_time": "2012-01-26t19:20:30.450z",
@@ -167,7 +129,7 @@ looks like this:
                             }
                     }
             },
-    
+
             "instrumenter": {
                     "instr1": {
                             "creation_time": "2012-01-26t19:20:30.450z",
@@ -218,49 +180,8 @@ services.  See cmd/kang.js for example usage.
 
 ## CLI
 
-One-shot mode:
-
-    # kang -h 10.99.99.20 type
-    TYPE
-    service
-    stats
-    instrumentation
-    instrumenter
-
-    # kang -h 10.99.99.20 instrumenter
-    INSTRUMENTER
-    instr1
-    instr2
-    instr3
-
-    # kang -h 10.99.99.20 instrumenter:instr1
-    [ {
-        "instrumenter": "instr1",
-    	"creation_time": "2012-01-26t19:20:30.450z",
-    	"instrumentations": [],
-    	"last_contact": "2012-01-26t19:20:30.450z"
-    } ]
-
-Aggregating from multiple services, and using an environment variable to avoid
-having to specify the services each time:
-
-    # export KANG_HOSTS=10.99.99.20,10.99.99.21:8080
-    # kang -l service
-    SERVICE        IDENT      NAME  VERSION
-    ca.localhost   localhost  ca    0.0.1
-    amon.localhost localhost  amon  0.1.0
-
-    # kang type
-    TYPE
-    instrumentation
-    instrumenter
-    monitor
+See above for details.
 
 ## Future work
 
-- Cached mode for reading a snapshot from a given file for high-latency links
-  and postmortem analysis.
-- Webconsole: turn on/off (and reorder?) individual table columns
-  Webconsole: refactor snapshot parsing to share code for web and server
 - Remove prefixes on library function names
-- Make default path /kang/snapshot
