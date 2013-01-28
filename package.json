@@ -4,7 +4,7 @@
 	"description": "debugging for distributed systems",
 	"main": "./lib/kang.js",
 	"bin": {
-		"kang": "./bin/kang.js",
+		"kang": "./bin/kang.js"
 	},
 	
 	"repository": {
