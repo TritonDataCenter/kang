@@ -1,6 +1,6 @@
 {
 	"name": "kang",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"description": "debugging for distributed systems",
 	"main": "./lib/kang.js",
 	"bin": {
@@ -13,7 +13,7 @@
 	},
 
 	"optionalDependencies": {
-		"restify": "1.4.2"
+		"restify": "2.3.3"
 	},
 
 	"dependencies": {
