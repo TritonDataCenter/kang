@@ -149,6 +149,7 @@ mod_assert.deepEqual({
 entry = result.lookupFirst('instr', 'cn01');
 
 mod_assert.deepEqual({
+	'origin': 'ca.configsvc.headnode',
 	'last_contact': '2012-02-10T23:41:20.095Z',
 	'present': false,
 	'instr': 'cn01'
