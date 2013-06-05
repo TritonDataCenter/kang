@@ -12,10 +12,6 @@
 		"url": "git://github.com/davepacheco/kang.git"
 	},
 
-	"optionalDependencies": {
-		"restify": "2.3.3"
-	},
-
 	"dependencies": {
 		"jsprim": "0.4.0",
 		"posix-getopt": "0.0.1",
