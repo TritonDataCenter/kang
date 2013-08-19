@@ -6,12 +6,10 @@
 	"bin": {
 		"kang": "./bin/kang.js"
 	},
-	
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/davepacheco/kang.git"
 	},
-
 	"dependencies": {
 		"jsprim": "0.4.0",
 		"posix-getopt": "0.0.1",
@@ -19,6 +17,8 @@
 		"strsplit": "1.0.0",
 		"vasync": "1.3.3"
 	},
-
-	"engines": [ "node >=0.6.0" ]
+	"engines": [
+		"node >=0.6.0"
+	],
+	"license": "MIT"
 }
