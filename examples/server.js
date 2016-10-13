@@ -5,7 +5,6 @@
 var mod_assert = require('assert');
 var mod_kang = require('../lib/kang');
 var mod_os = require('os');
-var mod_restify = require('restify');
 
 var port = 8080;
 
