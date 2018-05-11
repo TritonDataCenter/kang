@@ -1,6 +1,6 @@
 {
 	"name": "kang",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "debugging for distributed systems",
 	"main": "./lib/kang.js",
 	"bin": {
@@ -13,8 +13,8 @@
 	"dependencies": {
 		"jsprim": "^1.4.0",
 		"posix-getopt": "^1.2.0",
-		"restify": "4.1.1",
-		"restify-clients": "1.1.1",
+		"restify": "4.3.3",
+		"restify-clients": "1.5.3",
 		"strsplit": "^1.0.0",
 		"vasync": "^1.6.4",
 		"verror": "^1.9.0"
