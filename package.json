@@ -8,7 +8,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/joyent/kang.git"
+		"url": "https://github.com/joyent/kang.git"
 	},
 	"files": [
 		"bin",
