@@ -34,6 +34,11 @@ mod_http.createServer(function (req, res) {
 	var filename;
 
 	path = (uri == '/') ? dd_index : uri;
+    if (mod_path.normalize(mod_url.parse(req.url).pathname) !== mod_url.parse(req.url).pathname) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
 
 	if (path == '/proxy')
 		return (kangProxy(req, res));
